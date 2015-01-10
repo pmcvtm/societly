@@ -1,0 +1,11 @@
+# Compiled Output
+[Bb]in/
+[Oo]bj/
+
+# dependencies
+packages
+
+# VisualStudio
+*.suo
+*.user
+_ReSharper*

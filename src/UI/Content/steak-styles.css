@@ -1,0 +1,16 @@
+﻿header, .content, .game-container, footer {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+header, .content, footer {
+	width: 600px;
+}
+
+.content {
+	padding: 1em 4em;
+}
+
+header, footer {
+	text-align: center;
+}
