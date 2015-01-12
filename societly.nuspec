@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>societly</id>
+    <version>1.0.0.0</version>
+    <authors>Patrick McVeety-Mill</authors>
+    <description>Societly website package for Octopus deployment.</description>
+    <language>en-US</language>
+  </metadata>
+  <files>
+    <file src="\_PublishedWebsites\UI\bin\**" target="bin" />
+	<file src="\_PublishedWebsites\UI\bin\**.dll" target="lib" />
+    <file src="\_PublishedWebsites\UI\Content\**" target="Content" />
+    <file src="\_PublishedWebsites\UI\Views\**" target="Views" />
+    <file src="\_PublishedWebsites\UI\Global.asax" />
+    <file src="\_PublishedWebsites\UI\Web.config" />
+  </files>
+</package>

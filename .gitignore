@@ -1,6 +1,9 @@
+tools
+
 # Compiled Output
 [Bb]in/
 [Oo]bj/
+build
 
 # dependencies
 packages
