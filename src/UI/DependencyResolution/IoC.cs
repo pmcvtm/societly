@@ -16,6 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using Societly;
+using Societly.Data;
 
 namespace UI.DependencyResolution 
 {
@@ -28,6 +29,7 @@ namespace UI.DependencyResolution
             return new Container(c =>
             {
                 c.AddRegistry<CoreRegistry>();
+                c.AddRegistry<DataRegistry>();
                 c.AddRegistry<WebRegistry>();
             });
         }
