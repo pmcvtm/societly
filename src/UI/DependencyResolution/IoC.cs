@@ -15,6 +15,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Societly;
+
 namespace UI.DependencyResolution 
 {
     using StructureMap;
@@ -25,6 +27,7 @@ namespace UI.DependencyResolution
         {
             return new Container(c =>
             {
+                c.AddRegistry<CoreRegistry>();
                 c.AddRegistry<WebRegistry>();
             });
         }

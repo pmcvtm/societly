@@ -15,6 +15,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Microsoft.Practices.ServiceLocation;
 using UI.App_Start;
 
 using WebActivatorEx;
@@ -38,6 +39,10 @@ namespace UI.App_Start
         {
             IContainer container = IoC.Initialize();
             StructureMapDependencyScope = new StructureMapDependencyScope(container);
+
+            ServiceLocatorProvider provider = () => StructureMapDependencyScope;
+            container.Configure(cfg => cfg.For<ServiceLocatorProvider>().Use(provider));
+
             DependencyResolver.SetResolver(StructureMapDependencyScope);
             DynamicModuleUtility.RegisterModule(typeof(StructureMapScopeModule));
         }
