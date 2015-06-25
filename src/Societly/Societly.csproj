@@ -65,6 +65,12 @@
     <Compile Include="CoreRegistry.cs" />
     <Compile Include="Data\DbFactory.cs" />
     <Compile Include="Data\DataRegistry.cs" />
+    <Compile Include="Domain\Entity.cs" />
+    <Compile Include="Domain\Place.cs" />
+    <Compile Include="Domain\RawMaterial.cs" />
+    <Compile Include="Domain\RawMaterialSource.cs" />
+    <Compile Include="Domain\Socialite.cs" />
+    <Compile Include="Domain\GameUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

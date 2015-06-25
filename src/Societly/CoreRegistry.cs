@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Societly.Domain;
 using StructureMap.Configuration.DSL;
 
 namespace Societly
@@ -11,6 +12,7 @@ namespace Societly
                 scan =>
                 {
                     scan.AssemblyContainingType<IMediator>();
+                    scan.AssemblyContainingType<Socialite>();
                     scan.WithDefaultConventions();
                     scan.ConnectImplementationsToTypesClosing(typeof (IRequestHandler<,>));
                     scan.ConnectImplementationsToTypesClosing(typeof (IAsyncRequestHandler<,>));
