@@ -65,11 +65,16 @@
     <Compile Include="CoreRegistry.cs" />
     <Compile Include="Data\DbFactory.cs" />
     <Compile Include="Data\DataRegistry.cs" />
+    <Compile Include="Data\Mappings\PlaceMap.cs" />
+    <Compile Include="Data\Mappings\GameUserMap.cs" />
+    <Compile Include="Data\Mappings\RawMaterialMap.cs" />
+    <Compile Include="Data\Mappings\RawMaterialSourceMap.cs" />
     <Compile Include="Domain\Entity.cs" />
     <Compile Include="Domain\Place.cs" />
     <Compile Include="Domain\RawMaterial.cs" />
     <Compile Include="Domain\RawMaterialSource.cs" />
     <Compile Include="Domain\Socialite.cs" />
+    <Compile Include="Data\Mappings\SocialiteMapping.cs" />
     <Compile Include="Domain\GameUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

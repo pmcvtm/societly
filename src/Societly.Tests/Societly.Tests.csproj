@@ -63,6 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Mappings\GameUserMapTests.cs" />
+    <Compile Include="Data\Mappings\PlaceMapTests.cs" />
+    <Compile Include="Data\Mappings\RawMaterialMapTests.cs" />
+    <Compile Include="Data\Mappings\RawMaterialSoureMapTests.cs" />
+    <Compile Include="Data\Mappings\SocialiteMapTests.cs" />
     <Compile Include="Infrastructure\ContainerBuilder.cs" />
     <Compile Include="Infrastructure\TestRegistry.cs" />
     <Compile Include="IntegratedTestCustomization.cs" />
