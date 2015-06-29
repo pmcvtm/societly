@@ -69,6 +69,7 @@
     <Compile Include="Data\Mappings\RawMaterialSoureMapTests.cs" />
     <Compile Include="Data\Mappings\SocialiteMapTests.cs" />
     <Compile Include="Infrastructure\ContainerBuilder.cs" />
+    <Compile Include="Features\Account\EncrypterDecrypterServiceTests.cs" />
     <Compile Include="Infrastructure\TestRegistry.cs" />
     <Compile Include="IntegratedTestCustomization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

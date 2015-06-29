@@ -15,6 +15,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Societly.Features.Account;
+
 namespace UI.DependencyResolution {
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
@@ -28,6 +30,7 @@ namespace UI.DependencyResolution {
             Scan(
                 scan => {
                     scan.TheCallingAssembly();
+                    scan.AssemblyContainingType<RegisterUserCommand>();
                     scan.WithDefaultConventions();
                     scan.With(new ControllerConvention());
                 });

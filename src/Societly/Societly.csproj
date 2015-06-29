@@ -76,6 +76,9 @@
     <Compile Include="Domain\Socialite.cs" />
     <Compile Include="Data\Mappings\SocialiteMapping.cs" />
     <Compile Include="Domain\GameUser.cs" />
+    <Compile Include="Features\Account\EncrypterDecrypterService.cs" />
+    <Compile Include="Features\Account\LoginResult.cs" />
+    <Compile Include="Features\Account\RegisterUserCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
