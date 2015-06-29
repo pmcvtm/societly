@@ -1,4 +1,5 @@
-﻿@model Societly.Features.Account.RegisterUserCommand
+﻿@using UI.Helpers
+@model Societly.Features.Account.RegisterUserCommand
 
 @{
     ViewBag.Title = "Sign Up For Societly";
@@ -6,15 +7,18 @@
 
 <h2>Sign Up</h2>
 
-<p>Signing up is like, super easy.</p>
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "pure-form pure-form-aligned" }))
 {
-    @Html.EditorFor(x => x.Email)
+    <fieldset>
+        <legend>It's fun and easy!</legend>
 
-    @Html.EditorFor(x => x.UserName)
+        @Html.FormGroupFor(x => x.Email, Html.EditorFor(x => x.Email))
 
-    @Html.EditorFor(x => x.Password)
-    
-    <input type="submit" value="Sign Up"/>
+        @Html.FormGroupFor(x => x.UserName, Html.EditorFor(x => x.UserName))
+
+        @Html.FormGroupFor(x => x.Password, Html.PasswordFor(x => x.Password))
+
+        @Html.ActionLink("Bail", "Index", "Home", new { }, new { @class="pure-button" })
+        <input type="submit" class="pure-button pure-button-primary" value="Sign Up" />
+    </fieldset>
 }

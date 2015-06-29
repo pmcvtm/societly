@@ -14,3 +14,7 @@ header, .content, footer {
 header, footer {
 	text-align: center;
 }
+
+.validation-error {
+    color: red;
+}

@@ -1,15 +1,18 @@
-﻿@model Societly.Features.Account.LoginUserCommand
+﻿@using UI.Helpers
+@model Societly.Features.Account.LoginUserCommand
 
 <h2>Log In</h2>
 
-<p>Welcome back!</p>
-
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("LogIn", "Account", FormMethod.Post, new {@class = "pure-form pure-form-aligned"}))
 {
-    @Html.EditorFor(x => x.Email)
-    
-    @Html.EditorFor(x => x.Password)
+    <fieldset>
+        <legend>Welcome back!</legend>
+        
+        @Html.FormGroupFor(x => x.Email, Html.EditorFor(x => x.Email))
 
-    <input type="submit" value="Log In" />
+        @Html.FormGroupFor(x => x.Password, Html.PasswordFor(x => x.Password))
+
+        @Html.ActionLink("Bail", "Index", "Home", new { }, new { @class = "pure-button" })
+        <input type="submit" class="pure-button pure-button-primary" value="Log In" />
+    </fieldset>
 }

@@ -16,6 +16,16 @@
                     <li>@Html.ActionLink("About", "Index", "Home")</li>
                     <li>@Html.ActionLink("Proposals", "Index", "Home")</li>
                     <li>@Html.ActionLink("Guide", "Index", "Home")</li>
+                    
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Log Out", "LogOut", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Log In", "LogIn", "Account")</li>
+                        <li>@Html.ActionLink("Sign Up", "Register", "Account")</li>
+                    }
                 </ul>
             </nav>
         </header>
