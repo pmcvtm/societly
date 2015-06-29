@@ -78,6 +78,7 @@
     <Compile Include="Domain\GameUser.cs" />
     <Compile Include="Features\Account\EncrypterDecrypterService.cs" />
     <Compile Include="Features\Account\LoginResult.cs" />
+    <Compile Include="Features\Account\LoginUserCommand.cs" />
     <Compile Include="Features\Account\RegisterUserCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

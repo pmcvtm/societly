@@ -1,0 +1,20 @@
+﻿@model Societly.Features.Account.RegisterUserCommand
+
+@{
+    ViewBag.Title = "Sign Up For Societly";
+}
+
+<h2>Sign Up</h2>
+
+<p>Signing up is like, super easy.</p>
+
+@using (Html.BeginForm())
+{
+    @Html.EditorFor(x => x.Email)
+
+    @Html.EditorFor(x => x.UserName)
+
+    @Html.EditorFor(x => x.Password)
+    
+    <input type="submit" value="Sign Up"/>
+}

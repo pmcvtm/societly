@@ -1,0 +1,15 @@
+﻿@model Societly.Features.Account.LoginUserCommand
+
+<h2>Log In</h2>
+
+<p>Welcome back!</p>
+
+
+@using (Html.BeginForm())
+{
+    @Html.EditorFor(x => x.Email)
+    
+    @Html.EditorFor(x => x.Password)
+
+    <input type="submit" value="Log In" />
+}
