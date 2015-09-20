@@ -52,6 +52,50 @@ Target "Compile" ( fun _ ->
 )
 
 // --------------------------------------------------------------------------------------
+// Database
+let rhVersionFile = sourceDir + "/Database/_BuildInfo.xml"
+
+Target "RestoreRoundhouse" (fun _ ->
+    RestorePackageId ( fun rh ->
+        { rh with
+            ExcludeVersion = true
+            OutputPath = toolsDir
+        }
+    ) "roundhouse"
+)
+
+Target "SetRoundhouseVersion" (fun _ -> XmlPoke  rhVersionFile "buildInfo/version/text()" version  )
+
+Target "InitializeRoundhouse" DoNothing
+
+let rhParams database drop defaults =
+    { defaults with
+        SqlFilesDirectory = sourceDir + "/Database"
+        DatabaseName = database
+        Drop = drop
+        DatabaseType  = "sqlserver"
+        ServerDatabase = ".\sqlexpress"
+        VersionFile = rhVersionFile
+        Simple = true
+    }
+
+let RunRoundhouseUpdate database = Roundhouse <| rhParams database false
+let DropUsingRoundhouse database = Roundhouse <| rhParams database true
+
+let dbName = "societly"
+
+Target "DropDevDatabase" ( fun _ -> DropUsingRoundhouse dbName)
+Target "DropTestDatabase" ( fun _ -> DropUsingRoundhouse (dbName + "_test"))
+
+Target "UpdateDevDatabase" ( fun _ -> RunRoundhouseUpdate dbName)
+Target "UpdateTestDatabase" ( fun _ -> RunRoundhouseUpdate (dbName + "_test"))
+
+Target "RebuildDevDatabase" DoNothing
+Target "RebuildTestDatabase" DoNothing
+Target "UpdateAllDatabases" DoNothing
+
+
+// --------------------------------------------------------------------------------------
 // Packaging
 
 let webNuspec = "societly.nuspec"
@@ -93,12 +137,37 @@ let Thumbsup = fun _ -> trace "        _\n       / )\n      / /\n_____' (___\n  
 Target "Default" (Thumbsup)
 Target "CI" (Thumbsup)
 
+//Aliases
+Target "UAD" DoNothing
+Target "RATD" DoNothing
+
+"UpdateAllDatabases" ==> "UAD"
+"RebuildTestDatabase" ==> "RATD"
+
 //Compilation
 "Clean" ==> "NuGetRestore" ==> "Compile"
 
 //Packaging
 "Compile" ==> "CopyOctoPackages"
 "CopyOctoPackages" ==> "GeneratePackages"
+
+//Roundhouse
+"RestoreRoundhouse" ==> "InitializeRoundhouse"
+"SetRoundhouseVersion" ==> "InitializeRoundhouse"
+
+"InitializeRoundhouse" ==> "DropDevDatabase"
+"InitializeRoundhouse" ==> "DropTestDatabase"
+"InitializeRoundhouse" ==> "UpdateDevDatabase"
+"InitializeRoundhouse" ==> "UpdateTestDatabase"
+
+"DropTestDatabase" ==> "RebuildTestDatabase"
+"UpdateTestDatabase" ==> "RebuildTestDatabase"
+
+"DropDevDatabase" ==> "RebuildDevDatabase"
+"UpdateDevDatabase" ==> "RebuildDevDatabase"
+
+"UpdateDevDatabase" ==> "UpdateAllDatabases"
+"UpdateTestDatabase" ==> "UpdateAllDatabases"
 
 //Build Server
 "SetReleaseBuild" ==> "CI"
