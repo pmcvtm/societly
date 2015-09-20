@@ -1,18 +1,14 @@
 #r @"./tools/FAKE/tools/FakeLib.dll"
 open Fake
 open Fake.AssemblyInfoFile
+open Fake.RoundhouseHelper
 open System
 
-let buildDir = "./build/"
 let toolsDir = "tools"
 let sourceDir = "./src/"
-let slnFile = "./src/Societly.sln"
-
-let webNuspec = "societly.nuspec"
-
-let projectName = "Societly"
-let projectDescription = "A game with a sweet tagline"
-let copyright = "Copyright ©" + DateTime.UtcNow.Year.ToString()
+let buildDir = "./build/"
+let packageDir = buildDir + "artifacts"
+let slnFile = sourceDir + "Societly.sln"
 
 let setVersion = "0.1"
 let version =
@@ -20,60 +16,98 @@ let version =
     | TeamCity -> buildVersion
     | _ -> setVersion + ".0"
 
-Target "Clean" ( fun _ -> 
-    CleanDir buildDir
-)
+// --------------------------------------------------------------------------------------
+// Compilation
+
+let mutable buildConfig = "Debug"
 
 Target "NuGetRestore" RestorePackages
 
+Target "Clean" ( fun _ -> 
+    CleanDir buildDir
+    let buildParams defaults =
+        { defaults with
+            Verbosity = Some(Quiet)
+            Targets = ["Clean"]
+            Properties =["NoLogo", "True"; "Configuration", buildConfig]
+        }
+    build buildParams slnFile
+        |> DoNothing
+)
+
 Target "Compile" ( fun _ ->
-    trace ""
-    MSBuild buildDir "Build" [ "Verbosity","Quiet"; "Configuration","Release" ] [slnFile]
-     |> ignore
+    let buildParams defaults =
+        { defaults with
+            Verbosity = Some(Quiet)
+            Properties =
+                [
+                    "NoLogo", "True"
+                    "Configuration", buildConfig
+                    "RunOctoPack", "true"
+                    "OctoPackPackageVersion", version
+                ]
+        }
+    build buildParams slnFile
+        |> DoNothing
+)
+
+// --------------------------------------------------------------------------------------
+// Packaging
+
+let webNuspec = "societly.nuspec"
+
+Target "SetReleaseBuild" ( fun _ ->  
+    buildConfig <- "Release"
+    updateConfigSetting (sourceDir+"/UI/Web.config") "configuration/system.web/compilation" "debug" "false"
 )
 
 Target "GenerateAssemblyInfo" (fun _ ->
-    CreateCSharpAssemblyInfo "src/Societly/Properties/AssemblyInfo.cs"
-        [
-            Attribute.Title "Societly Core"
-            Attribute.Description projectDescription
-            Attribute.Product (projectName + " Core")
-            Attribute.Version version
-            Attribute.FileVersion version
-            Attribute.ComVisible false
-         ]
+    let CreateCommonAssemblyFor filename = 
+        CreateCSharpAssemblyInfo filename
+            [
+                Attribute.Title "Societly"
+                Attribute.Description "A game with a sweet tagline"
+                Attribute.Product "Societly"
+                Attribute.Version version
+                Attribute.FileVersion version
+                Attribute.ComVisible false
+                Attribute.Copyright ("Copyright Loud & Abrasive & Co. © " + DateTime.UtcNow.Year.ToString())
+             ]
 
-    CreateCSharpAssemblyInfo "src/UI/Properties/AssemblyInfo.cs"
-        [
-            Attribute.Title "Societly UI"
-            Attribute.Description projectDescription
-            Attribute.Product (projectName + " UI")
-            Attribute.Version version
-            Attribute.FileVersion version
-            Attribute.ComVisible false
-        ]
+    CreateCommonAssemblyFor "src/Societly/Properties/AssemblyInfo.cs"
+    CreateCommonAssemblyFor "src/Societly.UI/Properties/AssemblyInfo.cs"
 )
 
-Target "PackageWeb" (fun _ ->
-    NuGetPack  (fun p -> 
-        { p with
-            Version = version
-            WorkingDir = buildDir
-            OutputPath = buildDir
-            Publish = false
-        }) webNuspec
+Target "CopyOctoPackages" ( fun _ ->
+    CreateDir packageDir
+    CopyTo packageDir !! (sourceDir+"/**/bin/*.nupkg")
 )
+
+Target "GeneratePackages" DoNothing
+
+// --------------------------------------------------------------------------------------
+// Dependencies and Aliases
 
 let Thumbsup = fun _ -> trace "        _\n       / )\n      / /\n_____' (___\n       ((__)\n       ((___)\n       ((__)\n---___((__)\n"
 
 Target "Default" (Thumbsup)
 Target "CI" (Thumbsup)
 
+//Compilation
 "Clean" ==> "NuGetRestore" ==> "Compile"
-"Compile" ==> "Default"
 
+//Packaging
+"Compile" ==> "CopyOctoPackages"
+"CopyOctoPackages" ==> "GeneratePackages"
+
+//Build Server
+"SetReleaseBuild" ==> "CI"
+"Clean" ==> "CI"
+"NuGetRestore" ==> "CI"
 "GenerateAssemblyInfo" ==> "CI"
 "Compile" ==> "CI"
-"PackageWeb" ==> "CI"
+"GeneratePackages" ==> "CI"
+
+"Compile" ==> "Default"
 
 RunTargetOrDefault "Default"
