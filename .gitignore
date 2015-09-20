@@ -5,6 +5,9 @@ tools
 [Oo]bj/
 build
 
+.fake
+.vs
+
 # dependencies
 packages
 
