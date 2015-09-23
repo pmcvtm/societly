@@ -2,11 +2,13 @@
 open Fake
 open Fake.AssemblyInfoFile
 open Fake.RoundhouseHelper
+open Fake.FixieHelper
 open System
 
 let toolsDir = "tools"
 let sourceDir = "./src/"
 let buildDir = "./build/"
+let testDir = buildDir + "tests"
 let packageDir = buildDir + "artifacts"
 let slnFile = sourceDir + "Societly.sln"
 
@@ -94,6 +96,20 @@ Target "RebuildDevDatabase" DoNothing
 Target "RebuildTestDatabase" DoNothing
 Target "UpdateAllDatabases" DoNothing
 
+// --------------------------------------------------------------------------------------
+// Testing
+
+Target "CopyFilesForTesting" (fun _ ->
+    CreateDir testDir
+    let ext (ext:string) = sourceDir+"/**/bin/"+buildConfig+"/*"+ext
+    let filesForTest = !! (ext "ext") ++ (ext "dll") ++ (ext "config") ++ (ext "pdb") ++ (ext "sql") ++ (ext "xlsx")
+    CopyTo testDir filesForTest
+)
+
+Target "Test" ( fun _ ->
+    !! (testDir @@ "*Tests.dll")
+        |> Fixie (fun p -> p)
+)
 
 // --------------------------------------------------------------------------------------
 // Packaging
@@ -168,6 +184,11 @@ Target "RATD" DoNothing
 
 "UpdateDevDatabase" ==> "UpdateAllDatabases"
 "UpdateTestDatabase" ==> "UpdateAllDatabases"
+
+//Tests
+"RebuildTestDatabase" ==> "Test"
+"Compile" ==> "Test"
+"CopyFilesForTesting" ==> "Test"
 
 //Build Server
 "SetReleaseBuild" ==> "CI"
