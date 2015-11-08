@@ -7,6 +7,9 @@ namespace UI.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Game");
+
             return View();
         }
     }

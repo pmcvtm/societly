@@ -1,13 +1,31 @@
+create table GameUsers
+(
+	Id uniqueidentifier not null,
+
+	UserName	nvarchar(500) not null,
+	Email		nvarchar(500) not null,
+	Password	nvarchar(500) not null,
+	PasswordSalt nvarchar(500) not null,
+
+	constraint [PK_GameUsers] primary key clustered ([Id] asc)
+)
+GO
+
 create table Socialites
 (
 	Id uniqueidentifier not null,
 	FirstName	nvarchar(250) not null,
 	LastName	nvarchar(250) not null,
 	Birthday	date	not null,
+
+	UserId uniqueidentifier not null,
 	
 	constraint [PK_Socialites] primary key clustered ([Id] asc)
 )
 GO
+alter table Socialites add constraint [FK_Socialites_GameUsers] foreign key(UserId)
+references GameUsers (Id)
+Go
 
 create table Places
 (
@@ -48,17 +66,4 @@ references RawMaterials (Id)
 Go
 alter table RawMaterialSources add constraint [FK_RawMaterialSources_Places] foreign key(PlaceId)
 references Places (Id)
-
-create table GameUsers
-(
-	Id uniqueidentifier not null,
-
-	UserName	nvarchar(500) not null,
-	Email		nvarchar(500) not null,
-	Password	nvarchar(500) not null,
-	PasswordSalt nvarchar(500) not null,
-
-	constraint [PK_GameUsers] primary key clustered ([Id] asc)
-)
-GO
 

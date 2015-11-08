@@ -1,0 +1,79 @@
+﻿@model dynamic
+
+
+<style>
+    .canvasContainer {
+        text-align: center;
+    }
+</style>
+
+<div class="canvasContainer">
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+</div>
+
+
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
+<script>
+    (function () {
+        var canvas = this.__canvas = new fabric.Canvas('gameCanvas');
+        fabric.Object.prototype.transparentCorners = false;
+
+        var gridsize = 100;
+
+        var lands = [
+            { x: 0, y: 0, color: '#42784F' },
+            { x: 1, y: 0, color: '#786A42' },
+            { x: 1, y: 1, color: '#90C3D4' },
+            { x: 0, y: 1, color: '#42784F' }
+        ];
+
+
+
+        for (var i = 0; i < lands.length; i++) {
+            var land = lands[i];
+            var rect = new fabric.Rect({
+                width: gridsize,
+                height: gridsize,
+                left: land.y * gridsize,
+                top: land.x * gridsize,
+                fill: land.color,
+                selectable: false
+            });
+            canvas.add(rect);
+        }
+//
+//        canvas.on('mouse:over', function (e) {
+//            e.target.setFill('red');
+//            canvas.renderAll();
+//        });
+//
+//        canvas.on('mouse:out', function (e) {
+//            e.target.setFill('green');
+//            canvas.renderAll();
+//        });
+//
+//        // add random objects
+//        for (var i = 15; i--;) {
+//            var dim = fabric.util.getRandomInt(30, 60);
+//            var klass = ['Rect', 'Triangle', 'Circle'][fabric.util.getRandomInt(0, 2)];
+//            var options = {
+//                top: fabric.util.getRandomInt(0, 600),
+//                left: fabric.util.getRandomInt(0, 600),
+//                fill: 'green'
+//            };
+//            if (klass === 'Circle') {
+//                options.radius = dim;
+//            }
+//            else {
+//                options.width = dim;
+//                options.height = dim;
+//            }
+//            canvas.add(new fabric[klass](options));
+//        }
+    })();
+</script>
+
+
+
+
+

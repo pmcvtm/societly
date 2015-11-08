@@ -1,4 +1,5 @@
-﻿using Shouldly;
+﻿using Ploeh.AutoFixture;
+using Shouldly;
 using Societly.Domain;
 
 namespace Societly.Tests.Data.Mappings
@@ -7,10 +8,16 @@ namespace Societly.Tests.Data.Mappings
     {
         private readonly Socialite _socialite;
 
-        public SocialiteMapTests(Socialite socialite, IntegratedTestFixture fixture)
+        public SocialiteMapTests(GameUser user, IntegratedTestFixture fixture)
         {
-            fixture.Save(socialite);
+            fixture.Save(user);
 
+            var socialite = new Fixture().Build<Socialite>()
+                .WithAutoProperties()
+                .With(x => x.User, user)
+                .Create();
+
+            fixture.Save(socialite);
             _socialite = fixture.Load<Socialite>(socialite.Id);
         }
 

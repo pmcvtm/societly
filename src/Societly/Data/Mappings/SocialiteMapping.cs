@@ -9,6 +9,12 @@ namespace Societly.Data.Mappings
         {
             TableName("Socialites");
             PrimaryKey(x => x.Id, autoIncrement: false);
+
+            Columns(x =>
+            {
+                x.Column(s => s.UserId);
+                x.Column(s => s.User).Result();
+            });
         }
     }
 }
