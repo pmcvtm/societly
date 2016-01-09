@@ -135,7 +135,7 @@ Target "GenerateAssemblyInfo" (fun _ ->
              ]
 
     CreateCommonAssemblyFor "src/Societly/Properties/AssemblyInfo.cs"
-    CreateCommonAssemblyFor "src/Societly.UI/Properties/AssemblyInfo.cs"
+    CreateCommonAssemblyFor "src/UI/Properties/AssemblyInfo.cs"
 )
 
 Target "CopyOctoPackages" ( fun _ ->
