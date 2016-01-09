@@ -7,12 +7,12 @@ namespace Societly.Domain
         public int Latitude { get; set; }
         public int Longitude { get; set; }
 
-        public List<Socialite> Residents { get; private set; }
+        public List<Socielite> Residents { get; private set; }
         public List<RawMaterialSource> Resources { get; private set; }
 
-        public void AddResidents(Socialite socialite)
+        public void AddResidents(Socielite socielite)
         {
-            Residents.Add(socialite);
+            Residents.Add(socielite);
         }
 
         public void AddResource(RawMaterialSource source)
@@ -23,7 +23,7 @@ namespace Societly.Domain
 
         public Place()
         {
-            Residents = new List<Socialite>();
+            Residents = new List<Socielite>();
             Resources = new List<RawMaterialSource>();
         }
     }

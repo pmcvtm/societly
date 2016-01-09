@@ -3,9 +3,9 @@ using Societly.Domain;
 
 namespace Societly.Data.Mappings
 {
-    public class SocialiteMapping : Map<Socialite>
+    public class SocieliteMapping : Map<Socielite>
     {
-        public SocialiteMapping()
+        public SocieliteMapping()
         {
             TableName("Socialites");
             PrimaryKey(x => x.Id, autoIncrement: false);

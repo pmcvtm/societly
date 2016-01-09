@@ -12,7 +12,7 @@ namespace Societly
                 scan =>
                 {
                     scan.AssemblyContainingType<IMediator>();
-                    scan.AssemblyContainingType<Socialite>();
+                    scan.AssemblyContainingType<Socielite>();
                     scan.WithDefaultConventions();
                     scan.ConnectImplementationsToTypesClosing(typeof (IRequestHandler<,>));
                     scan.ConnectImplementationsToTypesClosing(typeof (IAsyncRequestHandler<,>));

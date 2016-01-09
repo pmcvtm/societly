@@ -73,8 +73,8 @@
     <Compile Include="Domain\Place.cs" />
     <Compile Include="Domain\RawMaterial.cs" />
     <Compile Include="Domain\RawMaterialSource.cs" />
-    <Compile Include="Domain\Socialite.cs" />
-    <Compile Include="Data\Mappings\SocialiteMapping.cs" />
+    <Compile Include="Domain\Socielite.cs" />
+    <Compile Include="Data\Mappings\SocieliteMapping.cs" />
     <Compile Include="Domain\GameUser.cs" />
     <Compile Include="Features\Account\EncrypterDecrypterService.cs" />
     <Compile Include="Features\Account\LoginResult.cs" />

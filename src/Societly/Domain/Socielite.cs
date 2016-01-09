@@ -2,7 +2,7 @@ using System;
 
 namespace Societly.Domain
 {
-    public class Socialite : Entity
+    public class Socielite : Entity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
