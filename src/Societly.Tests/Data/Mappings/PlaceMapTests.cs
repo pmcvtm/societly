@@ -1,21 +1,9 @@
-﻿using Shouldly;
-using Societly.Domain;
+﻿using Societly.Domain;
 
 namespace Societly.Tests.Data.Mappings
 {
-    public class PlaceMapTests
+    public class PlaceMapTests : MappingTestBase<Place>
     {
-        private readonly Place _place;
-
-        public PlaceMapTests(Place place, IntegratedTestFixture fixture)
-        {
-            fixture.Save(place);
-            _place = fixture.Load<Place>(place.Id);
-        }
-
-        public void ShouldSavePlace()
-        {
-            _place.ShouldNotBe(null);
-        }
+        public PlaceMapTests(IntegratedTestFixture fixture) : base(fixture) { }
     }
 }

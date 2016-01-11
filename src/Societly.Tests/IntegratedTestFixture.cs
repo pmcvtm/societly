@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using NPoco;
+using Ploeh.AutoFixture.Dsl;
 using Respawn;
 using Societly.Data;
 using Societly.Domain;
@@ -11,6 +11,7 @@ namespace Societly.Tests
 {
     public class IntegratedTestFixture
     {
+        private readonly Lazy<Builder> _builder = new Lazy<Builder>(() => new Builder());
         private static readonly IContainer Root = TestIoC.BuildCompositionRoot();
         private static Checkpoint Checkpoint = new Checkpoint
         {
@@ -36,5 +37,8 @@ namespace Societly.Tests
             var database = DbFactory.Create();
             return database.SingleOrDefaultById<TEntity>(id);
         }
+
+        public T Build<T>() { return _builder.Value.Build<T>(); }
+        public ICustomizationComposer<T> BuildWithOptions<T>() { return _builder.Value.BuildWithOptions<T>(); }
     }
 }

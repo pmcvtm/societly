@@ -1,21 +1,9 @@
-﻿using Shouldly;
-using Societly.Domain;
+﻿using Societly.Domain;
 
 namespace Societly.Tests.Data.Mappings
 {
-    public class RawMaterialMapTests
+    public class RawMaterialMapTests : MappingTestBase<RawMaterial>
     {
-        private readonly RawMaterial _rawMaterial;
-
-        public RawMaterialMapTests(RawMaterial material, IntegratedTestFixture fixture)
-        {
-            fixture.Save(material);
-            _rawMaterial = fixture.Load<RawMaterial>(material.Id);
-        }
-
-        public void ShouldSaveRawMaterial()
-        {
-            _rawMaterial.ShouldNotBe(null);
-        }
+        public RawMaterialMapTests(IntegratedTestFixture fixture) : base(fixture) { }
     }
 }

@@ -63,7 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder.cs" />
     <Compile Include="Data\Mappings\GameUserMapTests.cs" />
+    <Compile Include="Data\Mappings\MappingTestBase.cs" />
     <Compile Include="Data\Mappings\PlaceMapTests.cs" />
     <Compile Include="Data\Mappings\RawMaterialMapTests.cs" />
     <Compile Include="Data\Mappings\RawMaterialSoureMapTests.cs" />

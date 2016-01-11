@@ -8,8 +8,11 @@ namespace Societly.Tests.Data.Mappings
     {
         private readonly RawMaterialSource _source;
 
-        public RawMaterialSoureMapTests(RawMaterial material, Place place, IntegratedTestFixture fixture)
+        public RawMaterialSoureMapTests(IntegratedTestFixture fixture)
         {
+            var place = fixture.Build<Place>();
+            var material = fixture.Build<RawMaterial>();
+
             var source = new Fixture().Build<RawMaterialSource>()
                 .WithAutoProperties()
                 .With(x => x.Material, material)
